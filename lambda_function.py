@@ -10,7 +10,12 @@ def lambda_handler(event, context):
 
     method = str.upper(inputs.get('method'))
     account_name = str.upper(inputs.get('account_name'))
-    pass_length = int(inputs.get('length', 10))
+    pass_lenght_raw = inputs.get('length', '10')
+    try:
+        pass_length = int(pass_lenght_raw)
+    except ValueError:
+        pass_length = 10
+
     store_value = str(inputs.get('store_value', None))
 
     result = controller(method, account_name, pass_length, store_value)
